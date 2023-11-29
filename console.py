@@ -114,15 +114,23 @@ class HBNBCommand(cmd.Cmd):
         pass
 
     def do_create(self, args):
+        args_splited = args.split(" ")
         """ Create an object of any class"""
         if not args:
             print("** class name missing **")
             return
-        elif args not in HBNBCommand.classes:
+        elif args_splited[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-        new_instance = HBNBCommand.classes[args]()
-        storage.save()
+        new_instance = HBNBCommand.classes[args_splited[0]]()
+        if len(args_splited) > 1:
+            pdict = {}
+            for elem in args_splited[1:]:
+                kv = elem.split("=")
+                pdict[kv[0]] = kv[1].replace("\"", "").replace("_", " ") #ca serait bien de faire un dico sans boucle
+                # là j'ai un dico pdict (clé: valeurs) avec tout les parametres
+            for k, v in pdict.items():
+                setattr(new_instance, k, v)
         print(new_instance.id)
         storage.save()
 
