@@ -8,7 +8,6 @@ from sqlalchemy import String
 from sqlalchemy import Column
 
 Base = declarative_base()
-"""common base for all your SQLAlchemy models. When you define your models""" 
 
 class BaseModel:
     """A base class for all hbnb models"""
